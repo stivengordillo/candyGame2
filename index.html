@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  	<script type="text/javascript" src="js/app.js"></script>
+</head>
+<style>
+	*{
+		box-sizing:border-box;
+	}
+	#candyGame{
+		border:1px solid black;
+		display:flex;
+		flex-wrap:wrap;
+		height:768px;
+		margin:20px auto;
+		max-height:600px;
+		max-width:960px;
+	}
+	#candyGame div{
+		align-items:center;
+		display:flex;
+		text-align: center;
+		justify-content:center;
+	}
+	/*#candyGame div:nth-child(2n+1){
+		background:#ccc; 
+	}*/
+	#candyGame div img{
+		transition:.4s all;
+		max-width:50%;
+	}
+</style>
+<body>
+	<section id="candyGame">
+	</section>
+	<button id="start">Comenzar el juego</button>
+</body>
+</html>

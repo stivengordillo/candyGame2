@@ -2,21 +2,24 @@ $(document).ready(
 	function()
 	{
 		//SetUp juego
-		candys     = 7;
-		colums     = 7;
+		candys      = 7;
+		colums      = 7;
 		totalCandys = candys*colums;
+		maxCandy    = 4;
 
 		// Ancho y alto del juego
 		heightGame = $("#candyGame").height();
 		widthGame  = $("#candyGame").width();
 		
 		// Definicion tamañano columnas y dulces dependiendo el ancho de la pantalla
-		widthColum  = widthGame/colums;
-		heightCandy = heightGame/candys;
+		widthColum  = widthGame/candys;
+		heightCandy = heightGame/colums;
 
-		// Variable que va a saber cuanots cuadros contenederos va a tener el tablero
+		// Variable que va a saber cuantos cuadros contenedores va a tener el tablero
 		numSpaces   = 0;
 		timeSpeed   = 0;
+
+		saveRandom  = 0;
 
 		// Recibo la cantidad de dulces que se van a posicionar, el tiempo en el que se debe ejecutar la animación, la división a animar y la opción (0 = El juego inicia , 1 = evelua la posicion de los dulces que faltan)
 
@@ -30,8 +33,10 @@ $(document).ready(
 				if(numCandy == 1){
 					$("#c"+numCandy).animate({
 						"margin-top": 0
-					},timeSpeed);
-					validate(numCandy,0);
+					},timeSpeed,function(){
+						validate(1,0);
+					});
+					
 				}
 				//posiciona los dulces en el tablero
 				else{
@@ -50,35 +55,41 @@ $(document).ready(
 
 		// función encargada de validar los dulces y recibe como parametro el dulce a validar
 		
-		function validate(candyToValidate, opc){
-			idCandy				= $("#c"+candyToValidate).attr('id');
-			selectCandy         = $("#c"+candyToValidate).attr('data-rel');
-			selectCandyRight    = $("#c"+ (candyToValidate+1)).attr('data-rel');
-			selectCandyRightX2  = $("#c"+ (candyToValidate+2)).attr('data-rel');
-			selectCandyBottom   = $("#c"+ (candyToValidate+candys)).attr('data-rel');
-			selectCandyBottomX2 = $("#c"+ (candyToValidate+(candys*2))).attr('data-rel');
-			console.log(selectCandy+"-R"+selectCandyRight+"-Rx2-"+selectCandyRightX2+"-B"+selectCandyBottom+"-Bx2-"+selectCandyBottomX2+" || "+idCandy)
-			if(opc==0 && candyToValidate<=candys){
-				if(selectCandy == selectCandyRight && selectCandy == selectCandyRightX2){
-					console.log('aca hay 3 o mas right - '+ idCandy)
-					validate(candyToValidate+1,0);
-				}
-				if(selectCandy == selectCandyBottom && selectCandy == selectCandyBottomX2){
-					console.log('igual hay 3 o mas bottom -  ' + idCandy)
-					validate(candyToValidate+1,0);
-				}
-				else{
-					validate(candyToValidate+1,0);
+		function validate(colToValidate, opc){
+			if(opc==0){
+				for(r=1; r<=colums; r++)
+				{
+					for(c=1; c<=candys-2; c++)
+					{
+						cx1 = c+1;
+						cx2 = c+2;
+						ry1 = r+1;
+						ry2 = r+2;
+						candyVal = $("#c-"+r+"-"+c+" img");
+						candyValX1 = $("#c-"+r+"-"+cx1+" img");
+						candyValX2 = $("#c-"+r+"-"+cx2+" img");
+						candyValY1 = $("#c-"+ry1+"-"+c+" img");
+						candyValY1 = $("#c-"+ry2+"-"+c+" img");
+						if(candyVal.attr('data-rel') == candyValX1.attr('data-rel') && candyVal.attr('data-rel') == candyValX2.attr('data-rel') )
+						{
+							candyVal.delay(500).fadeOut();
+							candyValX1.delay(500).fadeOut();
+							candyValX2.delay(500).fadeOut();
+						}	
+					}
 				}
 			}
 				
 		}
 
 		//crear espacio para el dulce e insertarlo en el juego
-		for(k=1; k<=candys*colums; k++){
-			random = Math.round(Math.random() * (4 - 1) + 1);
-			numSpaces += 1;
-			$("#candyGame").append("<div id='"+k+"' data-rel='"+k+"' style='width:"+widthColum+"px; max-height:"+heightCandy+"'><img id='c"+numSpaces+"' data-rel='"+random+"' src='img/"+random+".png' style='display:block; margin-top:-"+heightGame*candys+"px;'></div>");	
+		for(i=1; i<=colums; i++){
+			$("#candyGame").append("<div id='col-"+i+"' style='width:100%; height:"+heightCandy+"'></div>")
+			for(k=1; k<=candys; k++){
+				random = Math.round(Math.random() * (maxCandy - 1) + 1);
+				numSpaces += 1;
+				$("#col-"+i).append("<div id='c-"+i+"-"+k+"' data-rel='"+random+"' style='width:"+widthColum+"px; max-height:"+heightCandy+"'><img id='c"+numSpaces+"' data-rel='"+random+"' src='img/"+random+".png' style='display:block; margin-top:-"+heightGame*candys+"px;'></div>");	
+			}
 		}
 
 		//Inicializa el juego con la función candyPosition

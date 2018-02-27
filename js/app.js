@@ -69,12 +69,18 @@ $(document).ready(
 						candyValX1 = $("#c-"+r+"-"+cx1+" img");
 						candyValX2 = $("#c-"+r+"-"+cx2+" img");
 						candyValY1 = $("#c-"+ry1+"-"+c+" img");
-						candyValY1 = $("#c-"+ry2+"-"+c+" img");
+						candyValY2 = $("#c-"+ry2+"-"+c+" img");
 						if(candyVal.attr('data-rel') == candyValX1.attr('data-rel') && candyVal.attr('data-rel') == candyValX2.attr('data-rel') )
 						{
 							candyVal.delay(500).fadeOut();
 							candyValX1.delay(500).fadeOut();
 							candyValX2.delay(500).fadeOut();
+						}
+						if(candyVal.attr('data-rel') == candyValY1.attr('data-rel') && candyVal.attr('data-rel') == candyValY2.attr('data-rel') )
+						{
+							candyVal.delay(500).fadeOut();
+							candyValY1.delay(500).fadeOut();
+							candyValY2.delay(500).fadeOut();
 						}	
 					}
 				}

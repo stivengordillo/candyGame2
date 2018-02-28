@@ -13,14 +13,12 @@ $(document).ready(
 		
 		// Definicion tamañano columnas y dulces dependiendo el ancho de la pantalla
 		widthColum  = widthGame/candys;
-		heightCandy = heightGame/candys;
+		heightCandy = heightGame/colums;
 
 		// Variable que va a saber cuantos cuadros contenedores va a tener el tablero
 		numSpaces   = 0;
 		timeSpeed   = 0;
 		saveRandom  = 0;
-		valCandy    = 0;
-		console.log(heightGame)
 
 		// Recibo la cantidad de dulces que se van a posicionar, el tiempo en el que se debe ejecutar la animación, la división a animar y la opción (0 = El juego inicia , 1 = evelua la posicion de los dulces que faltan)
 
@@ -71,9 +69,9 @@ $(document).ready(
 						candyValX2 = $("#c-"+r+"-"+cx2);
 						if(candyVal.attr('data-rel') == candyValX1.attr('data-rel') && candyVal.attr('data-rel') == candyValX2.attr('data-rel') )
 						{
-							candyVal.addClass('clear')
-							candyValX1.addClass('clear')
-							candyValX2.addClass('clear')
+							candyVal.delay(2000).empty();
+							candyValX1.delay(2000).empty();
+							candyValX2.delay(2000).empty();
 						}
 					}
 
@@ -85,31 +83,24 @@ $(document).ready(
 						candyVal = $("#c-"+r+"-"+c);
 						candyValY1 = $("#c-"+ry1+"-"+c);
 						candyValY2 = $("#c-"+ry2+"-"+c);
-						valCandy += 1;
 						if(candyVal.attr('data-rel') == candyValY1.attr('data-rel') && candyVal.attr('data-rel') == candyValY2.attr('data-rel') )
 						{
-							candyVal.addClass('clear')
-							candyValY1.addClass('clear')
-							candyValY2.addClass('clear')
+							candyVal.delay(2000).empty();
+							candyValY1.delay(2000).empty();
+							candyValY2.delay(2000).empty();
 						}
 					}
-					if(valCandy==totalCandys){
-						$('.clear').empty();
-						emptyDivs = $('#candyGame div').find('.clear');
-						console.log(emptyDivs)
-					}
 				}
-
 			}
 		}
 
 		//crear espacio para el dulce e insertarlo en el juego
 		for(i=1; i<=colums; i++){
-			$("#candyGame").append("<div id='col-"+i+"' style='width:"+widthColum+"px; height:"+heightGame+"'></div>")
+			$("#candyGame").append("<div id='col-"+i+"' style='width:100%; height:"+heightCandy+"'></div>")
 			for(k=1; k<=candys; k++){
 				random = Math.round(Math.random() * (maxCandy - 1) + 1);
 				numSpaces += 1;
-				$("#col-"+i).append("<div id='c-"+i+"-"+k+"' data-rel='"+random+"' style='width:"+widthColum+"px; height:"+heightCandy+"'><img id='c"+numSpaces+"' data-rel='"+random+"' src='img/"+random+".png' style='display:block; margin-top:-"+heightGame*candys+"px;'></div>");	
+				$("#col-"+i).append("<div id='c-"+i+"-"+k+"' data-rel='"+random+"' style='width:"+widthColum+"px; max-height:"+heightCandy+"'><img id='c"+numSpaces+"' data-rel='"+random+"' src='img/"+random+".png' style='display:block; margin-top:-"+heightGame*candys+"px;'></div>");	
 			}
 		}
 

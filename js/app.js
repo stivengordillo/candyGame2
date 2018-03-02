@@ -95,8 +95,27 @@ $(document).ready(
 					}
 					if(valCandy==totalCandys){
 						$('.clear').empty();
-						emptyDivs = $('#candyGame div').find('.clear');
-						console.log(emptyDivs)
+						for(e=1; e<=colums; e++)
+						{
+							emptyDivs = $("#col-"+e).find('.clear').length;
+							console.log(emptyDivs);
+							for(o=1; o<=candys; o++)
+							{
+								for(ce=1; ce<=candys; ce++)
+								{
+									validate = $("#c-"+e+"-"+ce).html();
+									validateT = ce-1;
+									if(validate)
+									{
+
+									}
+									else
+									{
+										$("#c-"+e+"-"+validateT+" img").appendTo("#c-"+e+"-"+ce);
+									}
+								}
+							}
+						}
 					}
 				}
 
@@ -105,11 +124,11 @@ $(document).ready(
 
 		//crear espacio para el dulce e insertarlo en el juego
 		for(i=1; i<=colums; i++){
-			$("#candyGame").append("<div id='col-"+i+"' style='width:"+widthColum+"px; height:"+heightGame+"'></div>")
+			$("#candyGame").append("<div id='col-"+i+"' class='col' style='width:"+widthColum+"px; height:"+heightGame+"'></div>")
 			for(k=1; k<=candys; k++){
 				random = Math.round(Math.random() * (maxCandy - 1) + 1);
 				numSpaces += 1;
-				$("#col-"+i).append("<div id='c-"+i+"-"+k+"' data-rel='"+random+"' style='width:"+widthColum+"px; height:"+heightCandy+"'><img id='c"+numSpaces+"' data-rel='"+random+"' src='img/"+random+".png' style='display:block; margin-top:-"+heightGame*candys+"px;'></div>");	
+				$("#col-"+i).append("<div id='c-"+i+"-"+k+"' data-rel='"+random+"' style='width:"+widthColum+"px; height:"+heightCandy+"px !important;'><img id='c"+numSpaces+"' data-rel='"+random+"' src='img/"+random+".png' style='display:block; margin-top:-"+heightGame*candys+"px;'></div>");	
 			}
 		}
 

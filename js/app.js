@@ -66,9 +66,9 @@ $(document).ready(
 					{
 						cx1 = c+1;
 						cx2 = c+2;
-						candyVal = $("#c-"+r+"-"+c);
-						candyValX1 = $("#c-"+r+"-"+cx1);
-						candyValX2 = $("#c-"+r+"-"+cx2);
+						candyVal = $("#c-"+r+"-"+c+" img");
+						candyValX1 = $("#c-"+r+"-"+cx1+" img");
+						candyValX2 = $("#c-"+r+"-"+cx2+" img");
 						if(candyVal.attr('data-rel') == candyValX1.attr('data-rel') && candyVal.attr('data-rel') == candyValX2.attr('data-rel') )
 						{
 							candyVal.addClass('clear')
@@ -82,9 +82,9 @@ $(document).ready(
 					{
 						ry1 = r+1;
 						ry2 = r+2;
-						candyVal = $("#c-"+r+"-"+c);
-						candyValY1 = $("#c-"+ry1+"-"+c);
-						candyValY2 = $("#c-"+ry2+"-"+c);
+						candyVal = $("#c-"+r+"-"+c+" img");
+						candyValY1 = $("#c-"+ry1+"-"+c+" img");
+						candyValY2 = $("#c-"+ry2+"-"+c+" img");
 						valCandy += 1;
 						if(candyVal.attr('data-rel') == candyValY1.attr('data-rel') && candyVal.attr('data-rel') == candyValY2.attr('data-rel') )
 						{
@@ -93,34 +93,69 @@ $(document).ready(
 							candyValY2.addClass('clear')
 						}
 					}
-					if(valCandy==totalCandys){
-						$('.clear').empty();
-						for(e=1; e<=colums; e++)
-						{
-							emptyDivs = $("#col-"+e).find('.clear').length;
-							console.log(emptyDivs);
-							for(o=1; o<=candys; o++)
-							{
-								for(ce=1; ce<=candys; ce++)
-								{
-									validate = $("#c-"+e+"-"+ce).html();
-									validateT = ce-1;
-									if(validate)
-									{
-
-									}
-									else
-									{
-										$("#c-"+e+"-"+validateT+" img").appendTo("#c-"+e+"-"+ce);
-									}
-								}
-							}
-						}
-					}
 				}
-
+				if(valCandy == totalCandys)
+				{
+					validateCandys();
+				}
 			}
 		}
+
+		function validateCandys()
+		{
+			candysToClear = $("div .clear").length;
+			console.log(candysToClear);
+			$('.clear').fadeOut("fast",function()
+				{
+					$(this).parent().empty();
+				}
+			)
+		}
+		
+			
+		
+		/*function clearCandys(){
+			$('.clear').fadeOut("fast",function()
+				{
+					$('.clear').parent().empty();
+				}
+			)
+			if(valCandy == totalCandys)
+			{
+				validateSpace();
+			}
+		}
+
+		function validateSpace()
+		{			
+			for(e=1; e<=colums; e++)
+			{
+				for(ct=1; ct<=candys; ct++)
+				{
+					emptyOrNot = $("#c-"+e+"-"+ct).html();
+					if(emptyOrNot)
+					{
+						console.log('llena')
+					}
+					else
+					{
+						console.log("c-"+e+"-"+ct+" esta vacía");
+						//$("#c-"+e+"-"+validateT+" img").appendTo("#c-"+e+"-"+ce);
+					}
+				}	
+			}		
+		}
+			for(o=1; o<=candys; o++)
+			{
+				for(ce=1; ce<=candys; ce++)
+				{
+					validate = $("#c-"+e+"-"+ce).html();
+					validateT = ce-1;
+					
+				}
+			}
+		*/
+
 
 		//crear espacio para el dulce e insertarlo en el juego
 		for(i=1; i<=colums; i++){
